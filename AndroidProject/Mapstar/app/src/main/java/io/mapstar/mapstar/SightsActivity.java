@@ -1,6 +1,7 @@
 package io.mapstar.mapstar;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,22 @@ import retrofit2.Response;
 
 public class SightsActivity extends ListActivity {
 
+    float longitude;
+    float latitude;
+    int money;
+    int time;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_sights);
 
+        Intent inputIntent = getIntent();
+        longitude = inputIntent.getFloatExtra("longitude",0);   //0 returned if no longitude found
+        latitude = inputIntent.getFloatExtra("latitude",0);
+        money=inputIntent.getIntExtra("money",0);
+        time=inputIntent.getIntExtra("time",15);
+        
         //Get Yelp reviews at hardcoded location
         YelpAPIFactory apiFactory = new YelpAPIFactory(
                 "BYz7q1kDnFUD5txoqFDitw",
