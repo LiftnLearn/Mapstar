@@ -18,14 +18,12 @@
             android:paddingRight="10dp"
             android:id="@+id/test_Btn"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/end_editText"
-        android:hint="Where you want to go"
-        android:layout_marginTop="71dp" />
+        <fragment
+            android:id="@+id/place_autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        />
 
 
 </fragment>
