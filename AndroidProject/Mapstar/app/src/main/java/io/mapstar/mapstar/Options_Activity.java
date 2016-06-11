@@ -36,7 +36,7 @@ public class Options_Activity extends AppCompatActivity {
 
                      int money = Integer.parseInt(moneyTxt.getText().toString());
                      int time = Integer.parseInt(timeTxt.getText().toString());
-                     Intent i = new Intent(getApplicationContext(), ScrollingActivity.class);
+                     Intent i = new Intent(getApplicationContext(), SightsActivity.class);
                      i.putExtra("money", money);
                      i.putExtra("time", time);
                      startActivity(i);
