@@ -55,15 +55,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         client.connect();
 
-        Button calcBtn = (Button) findViewById(R.id.test_Btn);
-        calcBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Options_Activity.class);
-                startActivity(i);
-            }
-        });
-
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
@@ -72,6 +63,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 System.out.println("Place: " + place.getName());
+                Intent i = new Intent(getApplicationContext(), Options_Activity.class);
+                i.putExtra("longitude", place.getLatLng().longitude);
+                i.putExtra("latitude", place.getLatLng().latitude);
+                startActivity(i);
             }
 
             @Override

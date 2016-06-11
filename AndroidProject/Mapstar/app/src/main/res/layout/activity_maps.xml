@@ -7,17 +7,6 @@
         android:layout_height="match_parent"
         tools:context="io.mapstar.mapstar.MapsActivity">
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
-            android:text="Demo Button"
-            android:padding="10dp"
-            android:layout_marginTop="20dp"
-            android:paddingRight="10dp"
-            android:id="@+id/test_Btn"/>
-
         <fragment
             android:id="@+id/place_autocomplete_fragment"
             android:layout_width="match_parent"
