@@ -26,25 +26,39 @@ public class SightsActivity extends ListActivity {
         //setContentView(R.layout.activity_sights);
 
         //Get Yelp reviews at hardcoded location
-        YelpAPIFactory apiFactory = new YelpAPIFactory("BYz7q1kDnFUD5txoqFDitw", "Zn8ZbR704jCzRpVjUC174EzlDOA",
-                "oaacwR8cUF5G1BCfIAeT3nTXThN0BOaB", "QbETamAbop6jol3bxUHNJlCrk8s");
+        YelpAPIFactory apiFactory = new YelpAPIFactory(
+                "BYz7q1kDnFUD5txoqFDitw",
+                "Zn8ZbR704jCzRpVjUC174EzlDOA",
+                "ly2Ps-VXz2yGAUBMoQMT-iaMYysBp7PL",
+                "HUS2-YVkkG5cqzu69wZyuzG4rP4");
         YelpAPI yelpAPI = apiFactory.createAPI();
 
         Map<String, String> params = new HashMap();
 
+        // general params
         params.put("term", "food");
+        params.put("limit", "3");
 
-        Call<SearchResponse> call = yelpAPI.search("San Francisco", params);
+        // locale params
+        params.put("lang", "fr");
+
+        Call<SearchResponse> call = yelpAPI.search("Munich", params);
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
                 SearchResponse searchResponse = response.body();
                 // Update UI text with the searchResponse.
+                System.out.println("Yelp answered.");
             }
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 // HTTP error happened, do something to handle it.
+                System.err.println("Yelp failed.");
+                t.printStackTrace();
+                t.getMessage();
+                t.toString();
+                System.out.println(call.toString());
             }
         };
 
