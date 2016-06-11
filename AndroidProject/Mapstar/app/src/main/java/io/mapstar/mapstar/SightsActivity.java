@@ -30,13 +30,15 @@ public class SightsActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_sights);
+        setTitle("Sights");
+        setContentView(R.layout.activity_options_);
 
         Intent inputIntent = getIntent();
         longitude = inputIntent.getFloatExtra("longitude",0);   //0 returned if no longitude found
         latitude = inputIntent.getFloatExtra("latitude",0);
         money=inputIntent.getIntExtra("money",0);
         time=inputIntent.getIntExtra("time",15);
-        
+
         //Get Yelp reviews at hardcoded location
         YelpAPIFactory apiFactory = new YelpAPIFactory(
                 "BYz7q1kDnFUD5txoqFDitw",

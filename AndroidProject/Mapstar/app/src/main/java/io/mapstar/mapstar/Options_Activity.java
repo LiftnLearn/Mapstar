@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class Options_Activity extends AppCompatActivity {
 
@@ -28,6 +30,13 @@ public class Options_Activity extends AppCompatActivity {
         Intent inputIntent = getIntent();
         longitude = inputIntent.getFloatExtra("longitude",0);   //0 returned if no longitude found
         latitude = inputIntent.getFloatExtra("latitude",0);
+
+
+         String[] categories = {"Food","Party", "Cultural","Landscape"};
+         Spinner spinner = (Spinner) findViewById(R.id.spinner);
+         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, categories);
+         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         spinner.setAdapter(adapter);
 
 
          moneyTxt = (EditText) findViewById(R.id.money_editText);
