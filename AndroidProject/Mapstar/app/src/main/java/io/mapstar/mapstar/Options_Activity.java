@@ -3,6 +3,7 @@ package io.mapstar.mapstar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,14 +30,20 @@ public class Options_Activity extends AppCompatActivity {
         Button goBtn = (Button) findViewById(R.id.spruch_button);
         goBtn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view){                                                                 //start ListView Activity with Parameters if you click the Button
-                int money = Integer.parseInt(moneyTxt.getText().toString());
-                int time = Integer.parseInt(timeTxt.getText().toString());
+            public void onClick(View view) {                                                                 //start ListView Activity with Parameters if you click the Button
 
-                Intent i = new Intent(getApplicationContext(), Options_Activity.class);
-                i.putExtra("money", money);
-                i.putExtra("time", time);
-                startActivity(i);
+                if (!moneyTxt.getText().toString().equals("") && !timeTxt.getText().toString().equals("")) {
+
+                     int money = Integer.parseInt(moneyTxt.getText().toString());
+                     int time = Integer.parseInt(timeTxt.getText().toString());
+                     Intent i = new Intent(getApplicationContext(), ScrollingActivity.class);
+                     i.putExtra("money", money);
+                     i.putExtra("time", time);
+                     startActivity(i);
+            }
+                else{
+                    Log.d("bug","eingabe null ");
+                }
             }
         });
 
