@@ -59,10 +59,7 @@ public class SightsActivity extends Activity {
 
         //Get Yelp reviews at hardcoded location
         YelpAPIFactory apiFactory = new YelpAPIFactory(
-                "BYz7q1kDnFUD5txoqFDitw",
-                "Zn8ZbR704jCzRpVjUC174EzlDOA",
-                "ly2Ps-VXz2yGAUBMoQMT-iaMYysBp7PL",
-                "HUS2-YVkkG5cqzu69wZyuzG4rP4");
+                
         YelpAPI yelpAPI = apiFactory.createAPI();
 
         Map<String, String> params = new HashMap();

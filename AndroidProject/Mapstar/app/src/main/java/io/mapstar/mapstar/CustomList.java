@@ -41,8 +41,11 @@ public class CustomList extends ArrayAdapter<String>{
         //imageView.setImageResource(imageId[position]);
         try{
         URL url = new URL(image[position]);
+            System.out.println(url);
         Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        imageView.setImageBitmap(bmp);} catch(Exception e) {};
+        imageView.setImageBitmap(bmp);} catch(Exception e) {e.printStackTrace();};
+
+        System.out.println("Finished");
         return rowView;
     }
 }
