@@ -137,6 +137,8 @@ public class SightsActivity extends ListActivity {
         if(position == values.length-1) {
             Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
             i.putExtra("sights", (Serializable) sightslist);
+            i.putExtra("longitude",longitude);
+            i.putExtra("latitude",latitude);
             startActivity(i);
         } else {
             String item = (String) getListAdapter().getItem(position);

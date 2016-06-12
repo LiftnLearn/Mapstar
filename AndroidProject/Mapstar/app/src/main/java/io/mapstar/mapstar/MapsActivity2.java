@@ -29,6 +29,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
         Intent inputIntent = getIntent();
         ArrayList<Business> businesses =(ArrayList<Business> ) inputIntent.getSerializableExtra("sights");
+        double longitude = inputIntent.getDoubleExtra("longitude",0);
+        double latitude = inputIntent.getDoubleExtra("latitude",0);
+
     }
 
 
