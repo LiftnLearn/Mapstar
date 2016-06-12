@@ -142,7 +142,7 @@ public class SightsActivity extends ListActivity {
             startActivity(i);
         } else {
             String item = (String) getListAdapter().getItem(position);
-            Toast.makeText(this, "Somebody clicked something!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You're going to visit this!", Toast.LENGTH_LONG).show();
             sightslist.add(searchResponse.businesses().get(position));
         }
     }
