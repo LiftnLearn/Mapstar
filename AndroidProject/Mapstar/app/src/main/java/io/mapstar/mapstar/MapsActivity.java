@@ -126,7 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Karlsruhe and move the camera
         LatLng karlsruhe = new LatLng(48.9935, 8.4022);
         mMap.addMarker(new MarkerOptions().position(karlsruhe).title("Marker in Karlsruhe"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(karlsruhe));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(karlsruhe, 12.0f));
     }
 
 
