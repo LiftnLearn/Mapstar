@@ -1,8 +1,9 @@
 package io.mapstar.mapstar;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,6 +11,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.yelp.clientlib.entities.Business;
 
 import java.util.ArrayList;
@@ -28,9 +31,15 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         Intent inputIntent = getIntent();
-        ArrayList<Business> businesses =(ArrayList<Business> ) inputIntent.getSerializableExtra("sights");
-        double longitude = inputIntent.getDoubleExtra("longitude",0);
-        double latitude = inputIntent.getDoubleExtra("latitude",0);
+        ArrayList<Business> businesses = (ArrayList<Business>) inputIntent.getSerializableExtra("sights");
+        double longitude = inputIntent.getDoubleExtra("longitude", 0);
+        double latitude = inputIntent.getDoubleExtra("latitude", 0);
+
+
+        Polyline line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(48.9935, 8.4022), new LatLng(latitude, longitude))
+                .width(5)
+                .color(Color.RED));
 
     }
 
