@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,27 +34,15 @@ public class SightsActivity extends ListActivity {
 
     //String[] values = null;
     //List<String> values = new ArrayList<String>();
-    String[] values = new String[20];
+    String[] values = new String[21];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Button generateBtn = (Button) findViewById(R.id.generateRouteBtn);
-        generateBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                    Intent i =  new Intent(getApplicationContext(), MapsActivity.class);
-                    i.putExtra("param", 2);
-                    i.putExtra("sights", sightslist);
-                    startActivity(i);
-
-            }
-        });
-
+        
        // setTitle("Sights");
-        for(int i = 0; i < 20; ++i) { values[i] = "";}
-
+        for(int i = 0; i < values.length; ++i) { values[i] = "";}
+        values[values.length-1] = "Click to proceed to Route";
 
         Intent inputIntent = getIntent();
         longitude = inputIntent.getDoubleExtra("longitude", 0);   //0 returned if no longitude found
@@ -145,8 +132,16 @@ public class SightsActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position,
                                    long id) {
-        String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, "Somebody clicked something!", Toast.LENGTH_LONG).show();
-        sightslist.add(searchResponse.businesses().get(position));
+        System.out.println(position);
+        if(position == values.length-1) {
+            Intent i =  new Intent(getApplicationContext(), MapsActivity.class);
+            i.putExtra("param", 2);
+            i.putExtra("sights", sightslist);
+            startActivity(i);
+        } else {
+            String item = (String) getListAdapter().getItem(position);
+            Toast.makeText(this, "Somebody clicked something!", Toast.LENGTH_LONG).show();
+            sightslist.add(searchResponse.businesses().get(position));
+        }
     }
 }
