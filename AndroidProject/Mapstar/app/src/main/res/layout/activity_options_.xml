@@ -17,7 +17,7 @@
         android:ems="10"
         android:id="@+id/time_editText"
         android:layout_marginTop="34dp"
-        android:hint="Time I want to spend (minutes)"
+        android:hint="Detour (minutes)"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -27,7 +27,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/money_editText"
-        android:hint="Money I want to spend (Euro)"
+        android:hint="Budget (Euro)"
         android:layout_below="@+id/time_editText"
         android:layout_alignStart="@+id/time_editText"
         android:layout_marginTop="71dp" />
@@ -35,7 +35,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Geiler Spruch"
+        android:text="Let's go!"
         android:id="@+id/spruch_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
