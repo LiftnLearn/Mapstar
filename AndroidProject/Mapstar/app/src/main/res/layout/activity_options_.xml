@@ -17,7 +17,7 @@
         android:ems="10"
         android:id="@+id/time_editText"
         android:layout_marginTop="34dp"
-        android:hint="Time I want to spend"
+        android:hint="Time I want to spend (minutes)"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -27,7 +27,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/money_editText"
-        android:hint="Money I want to spend"
+        android:hint="Money I want to spend (Euro)"
         android:layout_below="@+id/time_editText"
         android:layout_alignStart="@+id/time_editText"
         android:layout_marginTop="71dp" />
