@@ -16,9 +16,10 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/time_editText"
-        android:layout_marginTop="77dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Time I want to spend" />
+        android:layout_marginTop="34dp"
+        android:hint="Time I want to spend"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -36,8 +37,17 @@
         android:layout_height="wrap_content"
         android:text="Geiler Spruch"
         android:id="@+id/spruch_button"
-        android:layout_marginTop="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="77dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
         android:layout_below="@+id/money_editText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:spinnerMode="dropdown" />
 
 </RelativeLayout>
