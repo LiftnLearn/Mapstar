@@ -84,16 +84,41 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             mMap.addMarker(new MarkerOptions().position(temp).title(b.name()));
         }
 
-        //iterate over all goals and find the shortest one
-        Polyline line = mMap.addPolyline(new PolylineOptions()
-                .add(karlsruhe, target)
-                .width(5)
-                .color(Color.RED));
+        //iterate over all goals and find the shortest on
 
-        List<LatLng> bestPermutation = new ArrayList<LatLng>(businesses.size()+2);
+        List<LatLng> bestPermutation = new ArrayList<LatLng>();
+//
+//        List<LatLng> curPermutation = new ArrayList<LatLng>(businesses.size()+2);
+        bestPermutation.add(karlsruhe);
 
-        List<LatLng> curPermutation = new ArrayList<LatLng>(businesses.size()+2);
+        for(int i = 0; i < businesses.size(); ++i) {
+            LatLng temp = new LatLng(businesses.get(i).location().coordinate().latitude(),
+                    businesses.get(i).location().coordinate().longitude());
+            bestPermutation.add(temp);
+        }
 
-        //for(int i = 0; i < )
+        bestPermutation.add(target);
+
+        for(int i = 0; i < businesses.size() + 1; ++i) {
+            Polyline line = mMap.addPolyline(new PolylineOptions()
+                    .add(bestPermutation.get(i), bestPermutation.get(i+1))
+                    .width(5)
+                    .color(Color.RED));
+        }
     }
+
+//    public void permutation(String str) {
+//        permutation("", str);
+//    }
+//
+//    private void permutation(String prefix, String str) {
+//        int n = str.length();
+//        if (n == 0) System.out.println(prefix);
+//        else {
+//            for (int i = 0; i < n; i++) {
+//                permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n));
+//            }
+//        }
+//    }
 }
+
