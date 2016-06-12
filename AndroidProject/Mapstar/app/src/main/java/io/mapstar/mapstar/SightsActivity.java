@@ -1,9 +1,11 @@
 package io.mapstar.mapstar;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,23 +25,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SightsActivity extends ListActivity {
+public class SightsActivity extends Activity {
 
     Double longitude;
     Double latitude;
     int money;
     int time;
     String category;
-    ArrayList<Business> sightslist = new ArrayList<>(4);
     SearchResponse searchResponse;
+    ArrayList<Business> sightslist = new ArrayList<>(4);
 
-    //String[] values = null;
-    //List<String> values = new ArrayList<String>();
     String[] values = new String[21];
+    String[] image = new String[21];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sights);
+
+        ListView list;
 
        // setTitle("Sights");
         for(int i = 0; i < values.length; ++i) { values[i] = "";}
@@ -101,6 +105,7 @@ public class SightsActivity extends ListActivity {
                 //values = [searchResponse.businesses().size()];
                 for(int i = 0; i < searchResponse.businesses().size(); ++i) {
                     values[i] = searchResponse.businesses().get(i).name();
+                    image[i] = searchResponse.businesses().get(i).snippetImageUrl();
                 }
             }
             @Override
@@ -121,29 +126,27 @@ public class SightsActivity extends ListActivity {
             e.printStackTrace();
         }
 
-        //String[] valuesArray = {"hi", "ho"};//new String[20];
+        CustomList adapter = new
+                CustomList(SightsActivity.this, values, image);
+        list = (ListView)findViewById(R.id.list);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, R.layout.activity_sights, R.id.label, values
-        );
-
-        setListAdapter(adapter);
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position,
-                                   long id) {
-        System.out.println(position);
-        if(position == values.length-1) {
-            Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
-            i.putExtra("sights", (Serializable) sightslist);
-            i.putExtra("longitude",longitude);
-            i.putExtra("latitude",latitude);
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                if(position == values.length-1) {
+                    Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
+                    i.putExtra("sights", (Serializable) sightslist);
+                    i.putExtra("longitude",longitude);
+                    i.putExtra("latitude",latitude);
             startActivity(i);
-        } else {
-            String item = (String) getListAdapter().getItem(position);
-            Toast.makeText(this, "You're going to visit this!", Toast.LENGTH_LONG).show();
-            sightslist.add(searchResponse.businesses().get(position));
-        }
+                } else {
+                    Toast.makeText(SightsActivity.this, "You're going to visit " +values[+ position], Toast.LENGTH_SHORT).show();
+                    sightslist.add(searchResponse.businesses().get(position));
+                }
+            }
+        });
     }
+    
 }
