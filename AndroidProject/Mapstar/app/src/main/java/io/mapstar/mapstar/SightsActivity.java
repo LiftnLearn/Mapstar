@@ -39,7 +39,7 @@ public class SightsActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
        // setTitle("Sights");
         for(int i = 0; i < values.length; ++i) { values[i] = "";}
         values[values.length-1] = "Click to proceed to Route";
@@ -134,7 +134,7 @@ public class SightsActivity extends ListActivity {
                                    long id) {
         System.out.println(position);
         if(position == values.length-1) {
-            Intent i =  new Intent(getApplicationContext(), MapsActivity.class);
+            Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
             i.putExtra("param", 2);
             i.putExtra("sights", sightslist);
             startActivity(i);
