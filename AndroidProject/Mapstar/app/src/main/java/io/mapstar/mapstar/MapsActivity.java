@@ -64,8 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // TODO: Get info about the selected place.
                 System.out.println("Place: " + place.getName());
                 Intent i = new Intent(getApplicationContext(), Options_Activity.class);
-                i.putExtra("longitude", place.getLatLng().longitude);
-                i.putExtra("latitude", place.getLatLng().latitude);
+                i.putExtra("longitude", Double.toString(place.getLatLng().longitude));
+                i.putExtra("latitude", Double.toString(place.getLatLng().latitude));
                 startActivity(i);
             }
 

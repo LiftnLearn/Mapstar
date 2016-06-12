@@ -13,25 +13,22 @@ public class Options_Activity extends AppCompatActivity {
     EditText moneyTxt;
     EditText timeTxt;
 
-    float longitude;
-    float latitude;
+    String longitude;
+    String latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options_);
-
 
         setTitle("Preferences");
         setContentView(R.layout.activity_options_);
 
         Intent inputIntent = getIntent();
-        longitude = inputIntent.getFloatExtra("longitude",0);   //0 returned if no longitude found
-        latitude = inputIntent.getFloatExtra("latitude",0);
+        longitude = inputIntent.getStringExtra("longitude");   //0 returned if no longitude found
+        latitude = inputIntent.getStringExtra("latitude");
 
-
-         moneyTxt = (EditText) findViewById(R.id.money_editText);
-         timeTxt = (EditText) findViewById(R.id.time_editText);
+        moneyTxt = (EditText) findViewById(R.id.money_editText);
+        timeTxt = (EditText) findViewById(R.id.time_editText);
 
         Button goBtn = (Button) findViewById(R.id.spruch_button);
         goBtn.setOnClickListener(new View.OnClickListener(){
@@ -46,7 +43,7 @@ public class Options_Activity extends AppCompatActivity {
                      i.putExtra("money", money);
                      i.putExtra("time", time);
                      i.putExtra("longitude", longitude);
-                     i.putExtra("latitude", longitude);
+                     i.putExtra("latitude", latitude);
                      startActivity(i);
             }
                 else{

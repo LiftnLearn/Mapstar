@@ -12,7 +12,9 @@ import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.SearchResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -21,10 +23,13 @@ import retrofit2.Response;
 
 public class SightsActivity extends ListActivity {
 
-    float longitude;
-    float latitude;
+    String longitude;
+    String latitude;
     int money;
     int time;
+
+    //String[] values = null;
+    List<String> values = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +37,8 @@ public class SightsActivity extends ListActivity {
         //setContentView(R.layout.activity_sights);
 
         Intent inputIntent = getIntent();
-        longitude = inputIntent.getFloatExtra("longitude",0);   //0 returned if no longitude found
-        latitude = inputIntent.getFloatExtra("latitude",0);
+        longitude = inputIntent.getStringExtra("longitude");   //0 returned if no longitude found
+        latitude = inputIntent.getStringExtra("latitude");
         money=inputIntent.getIntExtra("money",0);
         time=inputIntent.getIntExtra("time",15);
         
@@ -47,21 +52,25 @@ public class SightsActivity extends ListActivity {
 
         Map<String, String> params = new HashMap();
 
-        // general params
-        params.put("term", "food");
-        params.put("limit", "3");
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
 
-        // locale params
-        params.put("lang", "fr");
+        //filter time using hashmap
 
         Call<SearchResponse> call = yelpAPI.search("Munich", params);
+
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
                 SearchResponse searchResponse = response.body();
                 // Update UI text with the searchResponse.
-                System.out.println("Yelp answered.");
+                System.out.println("Yelp answered." + searchResponse.businesses().size());
+
+              //  values = [searchResponse.businesses().size()];
+                for(int i = 0; i < searchResponse.businesses().size(); ++i) {
+                    values.add(searchResponse.businesses().get(i).name());
+                }
             }
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
@@ -81,11 +90,9 @@ public class SightsActivity extends ListActivity {
             e.printStackTrace();
         }
 
-        String[] values = new String[] {"stuff", "more stuff", "more", "moer", "more",
-        "more", "more", "different", "don't do this"};
-
+        String[] valuesArray = new String[values.size()];
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, R.layout.activity_sights, R.id.label, values
+                this, R.layout.activity_sights, R.id.label, values.toArray(valuesArray)
         );
 
         setListAdapter(adapter);
