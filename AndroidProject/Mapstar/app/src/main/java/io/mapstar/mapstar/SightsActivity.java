@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.SearchResponse;
+import com.yelp.clientlib.entities.options.CoordinateOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,25 +24,27 @@ import retrofit2.Response;
 
 public class SightsActivity extends ListActivity {
 
-    String longitude;
-    String latitude;
+    Double longitude;
+    Double latitude;
     int money;
     int time;
     String category;
 
     //String[] values = null;
-    List<String> values = new ArrayList<String>();
+    //List<String> values = new ArrayList<String>();
+    String[] values = new String[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_sights);
-        setTitle("Sights");
-        setContentView(R.layout.activity_options_);
+
+       // setTitle("Sights");
+        for(int i = 0; i < 20; ++i) { values[i] = "";}
+
 
         Intent inputIntent = getIntent();
-        longitude = inputIntent.getStringExtra("longitude");   //0 returned if no longitude found
-        latitude = inputIntent.getStringExtra("latitude");
+        longitude = inputIntent.getDoubleExtra("longitude", 0);   //0 returned if no longitude found
+        latitude = inputIntent.getDoubleExtra("latitude", 0);
         money=inputIntent.getIntExtra("money",0);
         time=inputIntent.getIntExtra("time",15);
         category = inputIntent.getStringExtra("category");
@@ -56,13 +59,34 @@ public class SightsActivity extends ListActivity {
 
         Map<String, String> params = new HashMap();
 
-        params.put("latitude", latitude);
-        params.put("longitude", longitude);
+        //filter time using hashmap/distance
+        CoordinateOptions coordinateOptions = new CoordinateOptions() {
+            @Override
+            public Double latitude() {
+                return latitude;
+            }
 
-        //filter time using hashmap
+            @Override
+            public Double longitude() {
+                return longitude;
+            }
 
-        Call<SearchResponse> call = yelpAPI.search("Munich", params);
+            @Override
+            public Double accuracy() {
+                return 10.0;
+            }
 
+            @Override
+            public Double altitude() {
+                return 0.0;
+            }
+
+            @Override
+            public Double altitudeAccuracy() {
+                return 10.0;
+            }
+        };
+        Call<SearchResponse> call = yelpAPI.search(coordinateOptions, params);
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
@@ -71,9 +95,9 @@ public class SightsActivity extends ListActivity {
                 // Update UI text with the searchResponse.
                 System.out.println("Yelp answered." + searchResponse.businesses().size());
 
-              //  values = [searchResponse.businesses().size()];
+                //values = [searchResponse.businesses().size()];
                 for(int i = 0; i < searchResponse.businesses().size(); ++i) {
-                    values.add(searchResponse.businesses().get(i).name());
+                    values[i] = searchResponse.businesses().get(i).name();
                 }
             }
             @Override
@@ -94,9 +118,10 @@ public class SightsActivity extends ListActivity {
             e.printStackTrace();
         }
 
-        String[] valuesArray = new String[values.size()];
+        //String[] valuesArray = {"hi", "ho"};//new String[20];
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, R.layout.activity_sights, R.id.label, values.toArray(valuesArray)
+                this, R.layout.activity_sights, R.id.label, values
         );
 
         setListAdapter(adapter);

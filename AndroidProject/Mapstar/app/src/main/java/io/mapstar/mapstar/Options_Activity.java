@@ -17,8 +17,8 @@ public class Options_Activity extends AppCompatActivity {
     EditText moneyTxt;
     EditText timeTxt;
 
-    String longitude;
-    String latitude;
+    Double longitude;
+    Double latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +28,8 @@ public class Options_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_options_);
 
         Intent inputIntent = getIntent();
-        longitude = inputIntent.getStringExtra("longitude");   //0 returned if no longitude found
-        latitude = inputIntent.getStringExtra("latitude");
+        longitude = inputIntent.getDoubleExtra("longitude", 0);   //0 returned if no longitude found
+        latitude = inputIntent.getDoubleExtra("latitude", 0);
 
          String[] categories = {"Food","Nightlife", "Arts & Entertainment","Landmarks"};
          final Spinner spinner = (Spinner) findViewById(R.id.spinner);
