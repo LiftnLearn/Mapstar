@@ -45,7 +45,6 @@ public class SightsActivity extends ListActivity {
         generateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
                     Intent i =  new Intent(getApplicationContext(), MapsActivity.class);
                     i.putExtra("param", 2);
                     i.putExtra("sights", sightslist);
