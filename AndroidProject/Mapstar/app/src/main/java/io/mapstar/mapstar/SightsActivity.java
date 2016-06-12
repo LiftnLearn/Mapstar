@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
+import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.CoordinateOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -29,6 +30,8 @@ public class SightsActivity extends ListActivity {
     int money;
     int time;
     String category;
+    ArrayList<Business> sightslist = new ArrayList<>(4);
+    SearchResponse searchResponse;
 
     //String[] values = null;
     //List<String> values = new ArrayList<String>();
@@ -37,6 +40,19 @@ public class SightsActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Button generateBtn = (Button) findViewById(R.id.generateRouteBtn);
+        generateBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                    Intent i =  new Intent(getApplicationContext(), MapsActivity.class);
+                    i.putExtra("param", 2);
+                    i.putExtra("sights", sightslist);
+                    startActivity(i);
+
+            }
+        });
 
        // setTitle("Sights");
         for(int i = 0; i < 20; ++i) { values[i] = "";}
@@ -91,7 +107,7 @@ public class SightsActivity extends ListActivity {
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
-                SearchResponse searchResponse = response.body();
+                searchResponse = response.body();
                 // Update UI text with the searchResponse.
                 System.out.println("Yelp answered." + searchResponse.businesses().size());
 
@@ -132,5 +148,6 @@ public class SightsActivity extends ListActivity {
                                    long id) {
         String item = (String) getListAdapter().getItem(position);
         Toast.makeText(this, "Somebody clicked something!", Toast.LENGTH_LONG).show();
+        sightslist.add(searchResponse.businesses().get(position));
     }
 }
