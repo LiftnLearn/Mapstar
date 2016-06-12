@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,8 +37,8 @@ public class SightsActivity extends Activity {
     SearchResponse searchResponse;
     ArrayList<Business> sightslist = new ArrayList<>(4);
 
-    String[] values = new String[21];
-    String[] image = new String[21];
+    String[] values = new String[20];
+    String[] image = new String[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class SightsActivity extends Activity {
 
        // setTitle("Sights");
         for(int i = 0; i < values.length; ++i) { values[i] = "";}
-        values[values.length-1] = "Click to proceed to Route";
 
         Intent inputIntent = getIntent();
         longitude = inputIntent.getDoubleExtra("longitude", 0);   //0 returned if no longitude found
@@ -135,18 +136,21 @@ public class SightsActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if(position == values.length-1) {
-                    Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
-                    i.putExtra("sights", (Serializable) sightslist);
-                    i.putExtra("longitude",longitude);
-                    i.putExtra("latitude",latitude);
-            startActivity(i);
-                } else {
-                    Toast.makeText(SightsActivity.this, "You're going to visit " +values[+ position], Toast.LENGTH_SHORT).show();
-                    sightslist.add(searchResponse.businesses().get(position));
-                }
+                Toast.makeText(SightsActivity.this, "You're going to visit " +values[+ position], Toast.LENGTH_SHORT).show();
+                sightslist.add(searchResponse.businesses().get(position));
+            }
+        });
+
+        Button sightsBtn = (Button) findViewById(R.id.sightBtn);
+        sightsBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
+                i.putExtra("sights", (Serializable) sightslist);
+                i.putExtra("longitude",longitude);
+                i.putExtra("latitude",latitude);
+                startActivity(i);
             }
         });
     }
-    
 }
