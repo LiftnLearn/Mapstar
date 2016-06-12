@@ -1,5 +1,6 @@
 package io.mapstar.mapstar;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,6 +10,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.yelp.clientlib.entities.Business;
+
+import java.util.ArrayList;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
@@ -22,6 +26,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent inputIntent = getIntent();
+        ArrayList<Business> businesses =(ArrayList<Business> ) inputIntent.getSerializableExtra("sights");
     }
 
 

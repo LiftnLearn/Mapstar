@@ -14,6 +14,7 @@ import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.CoordinateOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,8 +136,7 @@ public class SightsActivity extends ListActivity {
         System.out.println(position);
         if(position == values.length-1) {
             Intent i =  new Intent(getApplicationContext(), MapsActivity2.class);
-            i.putExtra("param", 2);
-            i.putExtra("sights", sightslist);
+            i.putExtra("sights", (Serializable) sightslist);
             startActivity(i);
         } else {
             String item = (String) getListAdapter().getItem(position);
