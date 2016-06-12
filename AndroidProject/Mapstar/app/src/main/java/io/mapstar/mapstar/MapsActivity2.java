@@ -19,11 +19,16 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.yelp.clientlib.entities.Business;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private GoogleApiClient client;
+
+    ArrayList<Business> businesses;
+    double longitude;
+    double latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +51,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         client.connect();
 
         Intent inputIntent = getIntent();
-        ArrayList<Business> businesses = (ArrayList<Business>) inputIntent.getSerializableExtra("sights");
-        double longitude = inputIntent.getDoubleExtra("longitude", 0);
-        double latitude = inputIntent.getDoubleExtra("latitude", 0);
-
-
-
-
+        businesses = (ArrayList<Business>) inputIntent.getSerializableExtra("sights");
+        longitude = inputIntent.getDoubleExtra("longitude", 0);
+        latitude = inputIntent.getDoubleExtra("latitude", 0);
     }
 
 
@@ -69,14 +70,30 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker in Karlsruhe and move the camera
+        LatLng karlsruhe = new LatLng(49.0068901, 8.4036527);
+        mMap.addMarker(new MarkerOptions().position(karlsruhe).title("DHBW Karlsruhe"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(karlsruhe, 12.0f));
 
+        LatLng target = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(target).title("Karlsruhe Hbf"));
+
+        for(Business b : businesses) {
+            LatLng temp = new LatLng(b.location().coordinate().latitude(),
+                    b.location().coordinate().longitude());
+            mMap.addMarker(new MarkerOptions().position(temp).title(b.name()));
+        }
+
+        //iterate over all goals and find the shortest one
         Polyline line = mMap.addPolyline(new PolylineOptions()
-                .add(new LatLng(48.9935, 8.4022), new LatLng(30, 12))
+                .add(karlsruhe, target)
                 .width(5)
                 .color(Color.RED));
+
+        List<LatLng> bestPermutation = new ArrayList<LatLng>(businesses.size()+2);
+
+        List<LatLng> curPermutation = new ArrayList<LatLng>(businesses.size()+2);
+
+        //for(int i = 0; i < )
     }
 }
