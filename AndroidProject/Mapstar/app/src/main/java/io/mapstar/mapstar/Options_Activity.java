@@ -32,8 +32,8 @@ public class Options_Activity extends AppCompatActivity {
         latitude = inputIntent.getFloatExtra("latitude",0);
 
 
-         String[] categories = {"Food","Party", "Cultural","Landscape"};
-         Spinner spinner = (Spinner) findViewById(R.id.spinner);
+         String[] categories = {"Food","Nightlife", "Arts & Entertainment","Landmarks"};
+         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
          ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, categories);
          adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
          spinner.setAdapter(adapter);
@@ -48,10 +48,11 @@ public class Options_Activity extends AppCompatActivity {
             public void onClick(View view) {                                                                 //start ListView Activity with Parameters if you click the Button
 
                 if (!moneyTxt.getText().toString().equals("") && !timeTxt.getText().toString().equals("")) {
-
+                     String category = (String) spinner.getSelectedItem();
                      int money = Integer.parseInt(moneyTxt.getText().toString());
                      int time = Integer.parseInt(timeTxt.getText().toString());
                      Intent i = new Intent(getApplicationContext(), SightsActivity.class);
+                     i.putExtra("category", category);
                      i.putExtra("money", money);
                      i.putExtra("time", time);
                      i.putExtra("longitude", longitude);

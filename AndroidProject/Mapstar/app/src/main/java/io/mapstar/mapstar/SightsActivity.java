@@ -25,6 +25,7 @@ public class SightsActivity extends ListActivity {
     float latitude;
     int money;
     int time;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class SightsActivity extends ListActivity {
         latitude = inputIntent.getFloatExtra("latitude",0);
         money=inputIntent.getIntExtra("money",0);
         time=inputIntent.getIntExtra("time",15);
+        category = inputIntent.getStringExtra("category");
 
         //Get Yelp reviews at hardcoded location
         YelpAPIFactory apiFactory = new YelpAPIFactory(
